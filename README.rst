@@ -130,11 +130,11 @@ for the 1-Wire bus.
 
 Once you have wired the sensor and the serial peripheral on the Arduino header
 to the 1-Wire bus, build and flash with:
+
 ```
-.. zephyr-app-commands::
-:zephyr-app: samples/sensor/ds18b20
-:goals: build flash
-:gen-args: -DDTC_OVERLAY_FILE=arduino_serial.overlay
+west build -b esp32c3_supermini samples/sensor/ds18b20 --pristine
+west flash
+
 ```
 
 The devicetree overlay
