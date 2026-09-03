@@ -123,7 +123,6 @@ Once you have wired the sensor and the serial peripheral on the Arduino header
 to the 1-Wire bus, build and flash with:
 
 ```
-
 # west build -b esp32c3_supermini samples/sensor/ds18b20 --pristine
 # west flash
 
@@ -188,7 +187,6 @@ InfluxDB
 |
 v
 Grafana
-
 ```
 
 This allows the same DS18B20 measurement to be consumed by multiple MQTT
@@ -210,7 +208,6 @@ Typical Telegraf config:
   name_override = "temperature"
 
   json_string_fields = []
-
 ```
 
 Influx db settings in Telegraf:
