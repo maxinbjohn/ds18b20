@@ -116,15 +116,6 @@ or a board-specific overlay file with a DS18B20 node may be available.
 
 Make sure this node has `status = "okay";`.
 
-Build and flash the application with:
-
-.. zephyr-app-commands::
-:zephyr-app: samples/sensor/ds18b20
-:goals: build flash
-:board: nucleo_g0b1re
-
-# DS18B20 via Arduino Serial pins
-
 Make sure that you have an external circuit to provide an open-drain interface
 for the 1-Wire bus.
 
@@ -132,8 +123,9 @@ Once you have wired the sensor and the serial peripheral on the Arduino header
 to the 1-Wire bus, build and flash with:
 
 ```
-west build -b esp32c3_supermini samples/sensor/ds18b20 --pristine
-west flash
+
+# west build -b esp32c3_supermini samples/sensor/ds18b20 --pristine
+# west flash
 
 ```
 
@@ -196,8 +188,39 @@ InfluxDB
 |
 v
 Grafana
+
 ```
 
 This allows the same DS18B20 measurement to be consumed by multiple MQTT
 clients and monitoring applications.
 
+Typical Telegraf config:
+
+```
+ 
+[[inputs.mqtt_consumer]]
+  servers = ["tcp://mqtt-broker-ip:1883"]
+
+  topics = [
+    "home/esp32c3/temperature"
+  ]
+
+  data_format = "json"
+
+  name_override = "temperature"
+
+  json_string_fields = []
+
+```
+
+Influx db settings in Telegraf:
+
+```
+
+[[outputs.influxdb_v2]]
+  urls = ["http://influxdb-server-ip:8086"]
+  token = "secret-token"
+  organization = "home"
+  bucket = "temperature"
+
+```
