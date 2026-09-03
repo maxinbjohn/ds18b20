@@ -130,11 +130,12 @@ for the 1-Wire bus.
 
 Once you have wired the sensor and the serial peripheral on the Arduino header
 to the 1-Wire bus, build and flash with:
-
+```
 .. zephyr-app-commands::
 :zephyr-app: samples/sensor/ds18b20
 :goals: build flash
 :gen-args: -DDTC_OVERLAY_FILE=arduino_serial.overlay
+```
 
 The devicetree overlay
 :zephyr_file:`samples/sensor/ds18b20/arduino_serial.overlay` should work on
@@ -147,7 +148,7 @@ console. DS18B20 driver, Wi-Fi, and MQTT status messages are also logged.
 
 A typical startup sequence is:
 
-.. code-block:: none
+```
 
 [00:00:00.042,000] <inf> ds18b20_mqtt: DS18B20 device ready: ds18b20
 [00:00:00.046,000] <inf> ds18b20_mqtt: Wi-Fi connection requested
@@ -155,15 +156,15 @@ A typical startup sequence is:
 [00:00:05.051,000] <inf> ds18b20_mqtt: Wi-Fi connected
 [00:00:05.XXX,XXX] <inf> ds18b20_mqtt: Connecting to MQTT broker
 [00:00:05.XXX,XXX] <inf> ds18b20_mqtt: MQTT connected
+```
 
 Temperature readings are periodically published to the MQTT broker:
 
-.. code-block:: none
-
+```
 home/esp32c3/temperature {"temperature":22.625000}
 home/esp32c3/temperature {"temperature":23.187500}
 home/esp32c3/temperature {"temperature":23.250000}
-
+```
 The exact timestamps and temperature values depend on the board, sensor,
 environment, and configured sampling interval.
 
@@ -174,8 +175,7 @@ system.
 
 A typical deployment is:
 
-.. code-block:: none
-
+```
 DS18B20
 |
 | 1-Wire
@@ -196,6 +196,7 @@ InfluxDB
 |
 v
 Grafana
+```
 
 This allows the same DS18B20 measurement to be consumed by multiple MQTT
 clients and monitoring applications.
