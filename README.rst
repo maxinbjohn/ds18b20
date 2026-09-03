@@ -181,12 +181,12 @@ MQTT Broker
 |                    |
 v                    v
 Home Assistant       Telegraf
-|
-v
-InfluxDB
-|
-v
-Grafana
+                      |
+                      v
+                    InfluxDB
+                      |
+                      v
+                     Grafana
 ```
 
 This allows the same DS18B20 measurement to be consumed by multiple MQTT
