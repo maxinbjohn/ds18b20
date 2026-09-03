@@ -1,4 +1,4 @@
-:: Based on zephyr:code-sample:: ds18b20
+Based on zephyr:code-sample:: ds18b20
 :name: DS18B20 1-Wire Temperature Sensor with MQTT
 :relevant-api: sensor_interface w1_sensor
 
@@ -24,15 +24,17 @@ enabled DS18B20 1-Wire interface. For this, I have used an esp32c3 supermini.
 
 The default MQTT topic is:
 
-.. code-block:: none
+```text
 
 home/esp32c3/temperature
+```
 
 The published payload has the following format:
 
-.. code-block:: json
+```text
 
 {"temperature":23.187500}
+```
 
 Building and Running
 
@@ -84,31 +86,33 @@ application.
 
 For example, the broker can be configured as:
 
-.. code-block:: none
 
+```text
 MQTT broker: <mqtt-server-ip>
 MQTT port:   1883
-
+```
 Temperature measurements are published to:
 
-.. code-block:: none
 
+```text
 home/esp32c3/temperature
+```
 
 Each MQTT message contains the temperature in degrees Celsius:
 
-.. code-block:: json
-
+```text
 {"temperature":22.625000}
+```
 
 An MQTT client can be used to monitor the published values. For example,
 using Mosquitto:
 
-.. code-block:: console
+
+```text
 
 mosquitto_sub -h <mqtt-server-ip> -p 1883 
 -t home/esp32c3/temperature -v
-
+```
 # Boards with a built-in DS18B20 or a board-specific overlay
 
 Your board may have a DS18B20 node configured in its devicetree by default,
@@ -122,10 +126,9 @@ for the 1-Wire bus.
 Once you have wired the sensor and the serial peripheral on the Arduino header
 to the 1-Wire bus, build and flash with:
 
-```
+```text
 # west build -b esp32c3_supermini samples/sensor/ds18b20 --pristine
 # west flash
-
 ```
 
 The devicetree overlay
@@ -139,7 +142,7 @@ console. DS18B20 driver, Wi-Fi, and MQTT status messages are also logged.
 
 A typical startup sequence is:
 
-```
+```text
 
 [00:00:00.042,000] <inf> ds18b20_mqtt: DS18B20 device ready: ds18b20
 [00:00:00.046,000] <inf> ds18b20_mqtt: Wi-Fi connection requested
@@ -151,7 +154,7 @@ A typical startup sequence is:
 
 Temperature readings are periodically published to the MQTT broker:
 
-```
+```text
 home/esp32c3/temperature {"temperature":22.625000}
 home/esp32c3/temperature {"temperature":23.187500}
 home/esp32c3/temperature {"temperature":23.250000}
@@ -166,7 +169,8 @@ system.
 
 A typical deployment is:
 
-```
+```text
+
 DS18B20
 |
 | 1-Wire
@@ -194,7 +198,7 @@ clients and monitoring applications.
 
 Typical Telegraf config:
 
-```
+```text
  
 [[inputs.mqtt_consumer]]
   servers = ["tcp://mqtt-broker-ip:1883"]
@@ -212,7 +216,7 @@ Typical Telegraf config:
 
 Influx db settings in Telegraf:
 
-```
+```text
 
 [[outputs.influxdb_v2]]
   urls = ["http://influxdb-server-ip:8086"]
